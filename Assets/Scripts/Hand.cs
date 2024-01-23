@@ -42,22 +42,26 @@ public class Hand : MonoBehaviour
     isSwinging = true;
     float time = 0;
     Vector3 originalPosition = spriter.transform.localPosition;
+    Vector3 originalRotation = spriter.transform.localEulerAngles;
 
-    // X축 방향으로 이동할 거리를 설정
-    float xOffset = 0.1f;
+    Vector3 customInitialRotation; // 예시로 30도 설정
 
-    float startAngle, endAngle, radius;
+    float startAngle, endAngle, radius, rotationSpeed;
     if (isReverse)
     {
         startAngle = 60f;
         endAngle = 270f;
         radius = 0.2f;
+        rotationSpeed = 2.0f;
+        customInitialRotation = new Vector3(0, 0, 270);
     }
     else
     {
         startAngle = 450f;
         endAngle = 270f;
         radius = 0.2f;
+        rotationSpeed = -2.0f;
+        customInitialRotation = new Vector3(0, 0, 450);
     }
 
     while (time < swingDuration)
@@ -68,12 +72,21 @@ public class Hand : MonoBehaviour
         float x = Mathf.Cos(angle) * radius;
         float y = Mathf.Sin(angle) * radius;
 
+        // 스프라이트의 위치 업데이트
         spriter.transform.localPosition = originalPosition + new Vector3(x, y, 0);
+
+        // 스프라이트의 회전 업데이트
+        float rotationAngle = rotationSpeed * 70f * (time / swingDuration); // 여기에서 회전 속도 적용
+        spriter.transform.localEulerAngles = customInitialRotation + new Vector3(0, 0, rotationAngle);
+
         yield return null;
     }
 
     spriter.transform.localPosition = originalPosition;
+    spriter.transform.localEulerAngles = originalRotation; // 스윙 종료 후 원래 회전 각도로 복귀
     isSwinging = false;
 }
+
+
 
 }
