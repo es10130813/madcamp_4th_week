@@ -131,7 +131,8 @@ public class Player : MonoBehaviour
             {
                 checkPointPosition = startPosition;
                 healthManager.SetHealth(3);
-
+                PlayerPrefs.DeleteKey("CheckpointX");
+                PlayerPrefs.DeleteKey("CheckpointY");
             }
             else
             {
