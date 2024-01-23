@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    bool IsTileAtPlayerPosition(Vector3 playerPosition, List<Tilemap> tilemaps)
+    public bool IsTileAtPlayerPosition(Vector3 playerPosition, List<Tilemap> tilemaps)
     {
         foreach (var tilemap in tilemaps)
         {
