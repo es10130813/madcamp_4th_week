@@ -127,7 +127,16 @@ public class Player : MonoBehaviour
         if (transform.position.y < fallThreshold)
         {
             healthManager.TakeDamage(1); // 하트 하나를 잃습니다.
-            checkPointPosition = new Vector3(PlayerPrefs.GetFloat("CheckpointX", startPosition.x), PlayerPrefs.GetFloat("CheckpointY", startPosition.y), 0);
+            if (healthManager.GetHealthCount() == 0)
+            {
+                checkPointPosition = startPosition;
+                healthManager.SetHealth(3);
+
+            }
+            else
+            {
+                checkPointPosition = new Vector3(PlayerPrefs.GetFloat("CheckpointX", startPosition.x), PlayerPrefs.GetFloat("CheckpointY", startPosition.y), 0);
+            }
             ResetPlayer();
         }
     }

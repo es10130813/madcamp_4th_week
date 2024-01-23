@@ -43,10 +43,25 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-     public void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
         health = Mathf.Max(0, health); // 건강 상태가 음수가 되지 않도록 합니다.
         UpdateHearts(); // 하트 UI 업데이트
+    }
+    public int GetHealthCount()
+    {
+        return health;
+    }
+
+    public void SetHealth(int cnt)
+    {
+        for (int i = 0; i < cnt; i++)
+        {
+            if (health < hearts.Length)
+            {
+                health++;
+            }
+        }
     }
 }
