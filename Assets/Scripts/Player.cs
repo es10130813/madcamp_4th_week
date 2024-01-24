@@ -177,8 +177,11 @@ IEnumerator EndKnockback()
     public HealthManager healthManager; // HealthManager 참조 추가
 
     void CheckFallThreshold()
+{
+    if (transform.position.y < fallThreshold)
     {
-        if (transform.position.y < fallThreshold)
+        // healthManager가 null이 아닌 경우에만 접근합니다.
+        if (healthManager != null)
         {
             healthManager.TakeDamage(1); // 하트 하나를 잃습니다.
             if (healthManager.GetHealthCount() == 0)
@@ -192,9 +195,15 @@ IEnumerator EndKnockback()
             {
                 checkPointPosition = new Vector3(PlayerPrefs.GetFloat("CheckpointX", startPosition.x), PlayerPrefs.GetFloat("CheckpointY", startPosition.y), 0);
             }
-            ResetPlayer();
         }
+        else
+        {
+            Debug.LogError("HealthManager 참조가 없습니다.");
+        }
+
+        ResetPlayer();
     }
+}
 
     void ResetPlayer()
     {
