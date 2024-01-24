@@ -13,6 +13,8 @@ public class Hand : MonoBehaviour
 
     private Player shadow;
 
+    public bool isReverse;
+
     private bool isSwinging = false; // 코루틴 실행 상태 추적을 위한 플래그
 
     void Awake()
@@ -28,7 +30,7 @@ public class Hand : MonoBehaviour
             StartCoroutine(ApplyLayerOrder());
         }
         else{
-        bool isReverse = player.flipX;
+        isReverse = player.flipX;
         if (isLeft)
         {
             spriter.sortingOrder = isReverse ? 12 : 9;
@@ -51,7 +53,16 @@ public class Hand : MonoBehaviour
     IEnumerator ApplyLayerOrder()
     { // 중력 적용
         yield return new WaitForSeconds(0.175f); // 0.175초 기다림
-        spriter.sortingOrder = 1; // Layer Order 업데이트
+        isReverse=player.flipX;
+        if (isLeft)
+        {
+            spriter.sortingOrder = isReverse? 1:-1;
+        }
+        else
+        {
+            spriter.sortingOrder = isReverse? -1:1;
+        }
+        // Layer Order 업데이트
     }
 
     IEnumerator SwingHand(bool isReverse)

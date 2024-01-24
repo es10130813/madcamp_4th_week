@@ -411,6 +411,7 @@ MonoBehaviour:
   isLeft: 0
   spriter: {fileID: 337257418}
   swingDuration: 0.3
+  isReverse: 0
 --- !u!95 &337257420
 Animator:
   serializedVersion: 5
@@ -1076,6 +1077,7 @@ MonoBehaviour:
   isLeft: 1
   spriter: {fileID: 1258745035}
   swingDuration: 0.3
+  isReverse: 0
 --- !u!95 &1258745037
 Animator:
   serializedVersion: 5
@@ -1772,7 +1774,7 @@ Transform:
   m_GameObject: {fileID: 1594537863}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.82, y: -0.25, z: 0}
+  m_LocalPosition: {x: -3.95, y: 0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2744,7 +2746,7 @@ Transform:
   m_GameObject: {fileID: 1795868444}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.82, y: -0.25, z: 0}
+  m_LocalPosition: {x: -4.75, y: -0.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
