@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 343107102}
   - component: {fileID: 343107104}
-  - component: {fileID: 343107103}
   m_Layer: 0
   m_Name: slime_green_0
   m_TagString: Untagged
@@ -150,33 +149,12 @@ Transform:
   m_GameObject: {fileID: 343107101}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1473343198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &343107103
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 343107101}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2da4dc0a0658b46479b7d9580a18d969, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &343107104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -218,7 +196,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -1249055726, guid: 8da0d2bd769fde14cabe8d673d208812, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ffd432bd8e58043bc10cb1539e23ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -533,7 +511,6 @@ GameObject:
   m_Component:
   - component: {fileID: 523995998}
   - component: {fileID: 523996000}
-  - component: {fileID: 523995999}
   m_Layer: 0
   m_Name: slime_green_0
   m_TagString: Untagged
@@ -550,33 +527,12 @@ Transform:
   m_GameObject: {fileID: 523995997}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1558715959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &523995999
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523995997}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2da4dc0a0658b46479b7d9580a18d969, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &523996000
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -618,7 +574,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -1249055726, guid: 8da0d2bd769fde14cabe8d673d208812, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ffd432bd8e58043bc10cb1539e23ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4317,7 +4273,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1212918458}
   - component: {fileID: 1212918460}
-  - component: {fileID: 1212918459}
   m_Layer: 0
   m_Name: slime_green_0
   m_TagString: Untagged
@@ -4334,33 +4289,12 @@ Transform:
   m_GameObject: {fileID: 1212918457}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 359899200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1212918459
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212918457}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2da4dc0a0658b46479b7d9580a18d969, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1212918460
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4402,7 +4336,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -1249055726, guid: 8da0d2bd769fde14cabe8d673d208812, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ffd432bd8e58043bc10cb1539e23ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4594,7 +4528,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1263853584}
   - component: {fileID: 1263853586}
-  - component: {fileID: 1263853585}
   m_Layer: 0
   m_Name: slime_green_0
   m_TagString: Untagged
@@ -4611,33 +4544,12 @@ Transform:
   m_GameObject: {fileID: 1263853583}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.18, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1216817128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1263853585
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263853583}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2da4dc0a0658b46479b7d9580a18d969, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1263853586
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4679,7 +4591,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -1249055726, guid: 8da0d2bd769fde14cabe8d673d208812, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8ffd432bd8e58043bc10cb1539e23ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
