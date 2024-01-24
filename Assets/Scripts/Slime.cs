@@ -31,7 +31,7 @@ public class Slime : MonoBehaviour
     private float boundaryApproachThreshold = 0.5f;
     private float jumpCheckInterval = 0.1f; // 점프 체크 간격
     private float jumpCheckTimer = 0f;
-
+    private CircleCollider2D circleCollider;
     private void Start()
     {
         rb.gravityScale = 0f;
@@ -39,6 +39,7 @@ public class Slime : MonoBehaviour
         startPosition = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
         PickRandomDirection();
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     private void Update()
@@ -97,10 +98,23 @@ public class Slime : MonoBehaviour
 
    private void OnCollisionEnter2D(Collision2D collision)
 {
-    if (collision.gameObject.CompareTag("Player") && playerClicked) // 플레이어가 클릭한 직후에 부딪힐 경우 슬라임이 넉백됨
+    if (collision.gameObject.CompareTag("Player"))
     {
-        Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
-        Knockback(knockbackDirection);
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player != null && !player.isKnockedBack && playerClicked)
+        {
+            Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+            Knockback(knockbackDirection);
+        }
+    }
+    else if (collision.gameObject.CompareTag("Slime"))
+    {
+        Slime otherSlime = collision.gameObject.GetComponent<Slime>();
+        // 슬라임과 슬라임의 충돌에서만 넉백 중인 슬라임을 무시
+        if (otherSlime != null && otherSlime.isKnockedBack)
+        {
+            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
+        }
     }
 }
 
@@ -109,6 +123,7 @@ private void Knockback(Vector2 direction)
     isKnockedBack = true;
     rb.velocity = Vector2.zero; // 현재 속도 초기화
     rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    GetComponent<Collider2D>().isTrigger = true; // 넉백 중에는 Collider를 Trigger로 설정
     StartCoroutine(EndKnockback());
 }
 
@@ -116,10 +131,11 @@ IEnumerator EndKnockback()
 {
     yield return new WaitForSeconds(knockbackDuration);
 
-    // 넉백 종료 후 속도 초기화
     rb.velocity = Vector2.zero;
     isKnockedBack = false;
+    GetComponent<Collider2D>().isTrigger = false; // 넉백이 끝나면 Collider를 다시 Trigger가 아닌 상태로 설정
 }
+
 
 
     void MoveSlime()
@@ -186,6 +202,10 @@ IEnumerator EndKnockback()
             {
                 Vector3 newPosition = transform.position - moveDelta.normalized * edgeDistanceThreshold * step;
                 transform.position = newPosition;
+                if (circleCollider != null)
+            {
+                circleCollider.isTrigger = true;
+            }
 
                 // 슬라임이 밖으로 떨어질 때 중력을 적용하여 아래로 떨어지도록 설정
                 rb.gravityScale = 4f;

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private List<Tilemap> tilemaps; // Tilemap 컴포넌트 참조
 
     [SerializeField] private float knockbackDuration = 0.5f; // 넉백 지속 시간
-    private bool isKnockedBack = false;
+    public bool isKnockedBack = false;
 
     [SerializeField] private float knockbackForce = 0.2f;
 
@@ -158,6 +158,7 @@ private void Knockback(Vector2 direction)
     isKnockedBack = true;
     rb.velocity = Vector2.zero; // 현재 속도 초기화
     rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    GetComponent<Collider2D>().isTrigger = true; // 넉백 중에는 Collider를 Trigger로 설정
     StartCoroutine(EndKnockback());
 }
 
@@ -165,10 +166,11 @@ IEnumerator EndKnockback()
 {
     yield return new WaitForSeconds(knockbackDuration);
 
-    // 넉백 종료 후 속도 초기화
     rb.velocity = Vector2.zero;
     isKnockedBack = false;
+    GetComponent<Collider2D>().isTrigger = false; // 넉백이 끝나면 Collider를 다시 Trigger가 아닌 상태로 설정
 }
+
 
 
 
