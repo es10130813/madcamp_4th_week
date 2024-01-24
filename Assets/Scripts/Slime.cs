@@ -35,6 +35,7 @@ public class Slime : MonoBehaviour
     private void Start()
     {
         rb.gravityScale = 0f;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
         startPosition = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
         PickRandomDirection();

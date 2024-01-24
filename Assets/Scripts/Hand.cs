@@ -10,15 +10,24 @@ public class Hand : MonoBehaviour
     [SerializeField] public float swingDuration = 0.15f; // Duration of the swing motion
 
     SpriteRenderer player;
+
+    private Player shadow;
+
     private bool isSwinging = false; // 코루틴 실행 상태 추적을 위한 플래그
 
     void Awake()
     {
         player = GetComponentsInParent<SpriteRenderer>()[1];
+        shadow = FindObjectOfType<Player>();
     }
 
     void LateUpdate()
     {
+        if (shadow != null && shadow.isFalling)
+        {
+            StartCoroutine(ApplyLayerOrder());
+        }
+        else{
         bool isReverse = player.flipX;
         if (isLeft)
         {
@@ -35,6 +44,14 @@ public class Hand : MonoBehaviour
         {
             StartCoroutine(SwingHand(isReverse));
         }
+        }
+    }
+
+
+    IEnumerator ApplyLayerOrder()
+    { // 중력 적용
+        yield return new WaitForSeconds(0.175f); // 0.175초 기다림
+        spriter.sortingOrder = 1; // Layer Order 업데이트
     }
 
     IEnumerator SwingHand(bool isReverse)

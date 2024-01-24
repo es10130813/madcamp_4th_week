@@ -22,12 +22,14 @@ public class Player : MonoBehaviour
     public float jumpHeight = 2f; // 점프 높이
     public float jumpDuration = 0.5f; // 점프 시간
     private bool isJumping = false; // 점프 상태 추적 변수
+    public bool isFalling = false;
     private Vector3 startPosition;
     private Vector3 checkPointPosition;
     public float fallThreshold = -15f;
     private int originalPlayerSortingOrder; // 플레이어의 원래 Order in Layer 값
     private Dictionary<Transform, int> originalChildSortingOrders;
     private Animator childAnimator;
+    private CircleCollider2D circleCollider;
 
     private void Start()
     {
@@ -58,6 +60,7 @@ public class Player : MonoBehaviour
         {
             childAnimator = child.GetComponent<Animator>();
         }
+        circleCollider = GetComponent<CircleCollider2D>();
 
     }
 
@@ -196,6 +199,11 @@ IEnumerator EndKnockback()
         transform.position = checkPointPosition; // 원래 위치로 돌아감
         rb.velocity = Vector2.zero; // 속도 초기화
         isJumping = false; // 점프 상태 초기화
+        isFalling = false;
+        if (circleCollider != null)
+        {
+            circleCollider.isTrigger = false;
+        }
         rb.gravityScale = 0f;
         ResetLayerOrder();
         // 중력 스케일 초기화
@@ -206,6 +214,11 @@ IEnumerator EndKnockback()
     {
         if (!IsTileAtPlayerPosition(transform.position, tilemaps) && !isJumping) // 추가된 점프 상태 확인
         {
+            isFalling = true;
+            if (circleCollider != null)
+            {
+                circleCollider.isTrigger = true;
+            }
             StartCoroutine(ApplyGravityAndLayerOrder());
         }
         else
@@ -221,7 +234,7 @@ IEnumerator EndKnockback()
         if (playerSpriteRenderer != null)
         {
             // 플레이어의 Order in Layer 값 변경
-            playerSpriteRenderer.sortingOrder -= 5;
+            playerSpriteRenderer.sortingOrder -= 6;
         }
 
         // 자식 오브젝트의 SpriteRenderer 찾아서 Order in Layer 값 변경
@@ -230,7 +243,7 @@ IEnumerator EndKnockback()
             SpriteRenderer childSpriteRenderer = child.GetComponent<SpriteRenderer>();
             if (childSpriteRenderer != null)
             {
-                childSpriteRenderer.sortingOrder -= 9;
+                childSpriteRenderer.sortingOrder -= 10;
             }
         }
     }
