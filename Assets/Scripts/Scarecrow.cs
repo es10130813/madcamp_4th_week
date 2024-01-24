@@ -43,30 +43,35 @@ public class Scarecrow : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Player"))
     {
-        if (collision.gameObject.CompareTag("Player") && playerClicked)
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player != null && !player.isKnockedBack && playerClicked)
         {
             Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
             Knockback(knockbackDirection);
         }
     }
+}
 
     private void Knockback(Vector2 direction)
-    {
-        isKnockedBack = true;
-        rb.velocity = Vector2.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
-        StartCoroutine(EndKnockback());
-    }
+{
+    isKnockedBack = true;
+    rb.velocity = Vector2.zero; // 현재 속도 초기화
+    rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    GetComponent<Collider2D>().isTrigger = true; // 넉백 중에는 Collider를 Trigger로 설정
+    StartCoroutine(EndKnockback());
+}
 
-    IEnumerator EndKnockback()
-    {
-        yield return new WaitForSeconds(knockbackDuration);
+IEnumerator EndKnockback()
+{
+    yield return new WaitForSeconds(knockbackDuration);
 
-        rb.velocity = Vector2.zero;
-        isKnockedBack = false;
-    }
-
+    rb.velocity = Vector2.zero;
+    isKnockedBack = false;
+    GetComponent<Collider2D>().isTrigger = false; // 넉백이 끝나면 Collider를 다시 Trigger가 아닌 상태로 설정
+}
     private void ResetPlayerClicked()
     {
         playerClicked = false;
@@ -77,6 +82,7 @@ public class Scarecrow : MonoBehaviour
         if (!IsTileAtScarecrowPosition(transform.position, tilemaps) && !isFalling)
         {
             circleCollider.isTrigger = true;
+            child.GetComponent<SpriteRenderer>().sortingOrder = 1;
             rb.gravityScale = 4f;
             isFalling = true;
         }
@@ -102,6 +108,7 @@ public class Scarecrow : MonoBehaviour
             // 초기 위치로 복귀
             transform.position = startPosition; 
             rb.gravityScale = 0f; 
+             child.GetComponent<SpriteRenderer>().sortingOrder = 10;
             rb.velocity = Vector2.zero; 
             if (circleCollider != null)
         {
@@ -111,4 +118,6 @@ public class Scarecrow : MonoBehaviour
             gameObject.SetActive(true);
         }
     }
+
+
 }
