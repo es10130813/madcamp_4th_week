@@ -7,7 +7,14 @@ public class Slime : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private List<Tilemap> tilemaps;
+    [SerializeField] private float knockbackForce = 0.2f;
+    [SerializeField] private float clickDuration = 0.5f;
+
+    [SerializeField] private float knockbackDuration = 0.5f; // 넉백 지속 시간
+    private bool isKnockedBack = false;
+
     public Rigidbody2D rb;
+    private bool playerClicked = false; 
     public SpriteRenderer spriteRenderer;
     public Transform child;
     public float jumpHeight = 2f;
@@ -35,6 +42,12 @@ public class Slime : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0)) // 마우스 클릭 감지
+    {
+        playerClicked = true;
+        Invoke("ResetPlayerClicked", clickDuration); // 일정 시간 후 playerClicked를 리셋
+    }
+
         movementTimer += Time.deltaTime;
 
         if (movementTimer >= movementChangeInterval)
@@ -67,7 +80,7 @@ public class Slime : MonoBehaviour
         // 점프 상태에서만 랜덤 방향으로 움직이도록 수정
         if (!isJumping && !isFalling && jumpCheckTimer >= jumpCheckInterval)
         {
-            if (Random.Range(0, 100) < 15)
+            if (Random.Range(0, 100) < 10)
             {
                 StartCoroutine(Jump());
 
@@ -81,12 +94,44 @@ public class Slime : MonoBehaviour
         CheckFallThreshold();
     }
 
+   private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Player") && playerClicked) // 플레이어가 클릭한 직후에 부딪힐 경우 슬라임이 넉백됨
+    {
+        Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+        Knockback(knockbackDirection);
+    }
+}
+
+private void Knockback(Vector2 direction)
+{
+    isKnockedBack = true;
+    rb.velocity = Vector2.zero; // 현재 속도 초기화
+    rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    StartCoroutine(EndKnockback());
+}
+
+IEnumerator EndKnockback()
+{
+    yield return new WaitForSeconds(knockbackDuration);
+
+    // 넉백 종료 후 속도 초기화
+    rb.velocity = Vector2.zero;
+    isKnockedBack = false;
+}
+
+
     void MoveSlime()
     {
         Vector3 moveDelta = new Vector3(movementDirection.x * moveSpeed * Time.deltaTime, movementDirection.y * moveSpeed * Time.deltaTime, 0);
         transform.position += moveDelta;
         spriteRenderer.flipX = movementDirection.x < 0;
     }
+
+    private void ResetPlayerClicked()
+{
+    playerClicked = false;
+}
 
     void PickRandomDirection()
     {
