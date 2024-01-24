@@ -7,6 +7,15 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private List<Tilemap> tilemaps; // Tilemap 컴포넌트 참조
+
+    [SerializeField] private float knockbackDuration = 0.5f; // 넉백 지속 시간
+    private bool isKnockedBack = false;
+
+    [SerializeField] private float knockbackForce = 0.2f;
+
+    private bool playerClicked = false;
+    [SerializeField] private float clickDuration = 0.5f;
+
     public Rigidbody2D rb;
     public SpriteRenderer playerSpriteRenderer;
     public Transform child; // 자식 오브젝트 참조
@@ -22,7 +31,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        rb.gravityScale = 0f; // 시작 시 중력 영향을 받지 않도록 설정
+        rb.gravityScale = 0f; 
+    rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 시작 시 중력 영향을 받지 않도록 설정
         startPosition = transform.position;
         checkPointPosition = startPosition;
         PlayerPrefs.DeleteKey("CheckpointX");
@@ -53,12 +63,18 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0)) // 마우스 클릭 감지
+    {
+        playerClicked = true;
+        Invoke("ResetPlayerClicked", clickDuration); // 일정 시간 후 playerClicked를 리셋
+    }
+
         bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
         if (childAnimator != null)
         {
             childAnimator.SetInteger("AnimationState", isMoving ? 1 : 0);
         }
-        if (rb.gravityScale == 0)
+        if (rb.gravityScale == 0&&!isKnockedBack)
         {
             Vector3 moveHorizontal = new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             Vector3 moveVertical = new Vector3(0, moveSpeed * Time.deltaTime, 0);
@@ -119,6 +135,39 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Slime"))
+    {
+        // 부딪힌 반대방향으로 넉백 계산
+        Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+
+        if (!playerClicked) // 클릭하지 않은 상태에서만 플레이어가 넉백됨
+        {
+            Knockback(knockbackDirection);
+        }
+    }
+}
+
+private void Knockback(Vector2 direction)
+{
+    isKnockedBack = true;
+    rb.velocity = Vector2.zero; // 현재 속도 초기화
+    rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    StartCoroutine(EndKnockback());
+}
+
+IEnumerator EndKnockback()
+{
+    yield return new WaitForSeconds(knockbackDuration);
+
+    // 넉백 종료 후 속도 초기화
+    rb.velocity = Vector2.zero;
+    isKnockedBack = false;
+}
+
+
 
     public HealthManager healthManager; // HealthManager 참조 추가
 
@@ -184,6 +233,11 @@ public class Player : MonoBehaviour
                 childSpriteRenderer.sortingOrder -= 9;
             }
         }
+    }
+
+    private void ResetPlayerClicked()
+    {
+        playerClicked = false;
     }
 
     void ResetLayerOrder()
