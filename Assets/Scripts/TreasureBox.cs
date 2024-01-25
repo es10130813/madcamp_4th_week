@@ -40,6 +40,8 @@ public class InteractionScript : MonoBehaviour
     {
         // Animator 컴포넌트를 가져오고 새로운 애니메이션 상태로 변경
         Animator animator = objectToAnimate.GetComponent<Animator>();
+        Debug.Log("ChangeAnimation: "+newAnimationState);
+
         if (animator != null)
         {
             animator.Play(newAnimationState);
@@ -52,13 +54,12 @@ public class InteractionScript : MonoBehaviour
     {
         Debug.Log("LoadDefaultAnimation(start)");
         string defaultAnimation = PlayerPrefs.GetString("DefaultAnimation", "right_hand_sword"); // DefaultState는 기본 애니메이션 이름
-        newAnimationState = defaultAnimation;
 
         // Animator 컴포넌트를 가져와서 저장된 애니메이션으로 설정
         Animator animator = objectToAnimate.GetComponent<Animator>();
         if (animator != null)
         {
-            animator.Play(newAnimationState);
+            animator.Play(defaultAnimation);
         }
     }
 }
