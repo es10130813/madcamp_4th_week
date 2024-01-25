@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -213,6 +214,8 @@ IEnumerator EndKnockback()
                 healthManager.SetHealth(3);
                 PlayerPrefs.DeleteKey("CheckpointX");
                 PlayerPrefs.DeleteKey("CheckpointY");
+                SceneManager.LoadScene("BaseCamp");
+                return;
             }
             else
             {
