@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TitleMovement : MonoBehaviour
 {
+    public GameObject button; // 버튼에 대한 참조
+    public float threshold = 0.01f; // 위치가 일치하는 것으로 간주할 수 있는 최대 거리
+
     public Transform titleTransform;
     public Animator monsterAnimator;
     public Vector3 startPosition;
@@ -21,6 +24,13 @@ public class TitleMovement : MonoBehaviour
 
     void Update()
     {
+        float distance = Vector3.Distance(transform.position, endPosition);
+
+        // 거리가 threshold 이내이면 버튼 활성화
+        if (distance <= threshold)
+        {
+            button.SetActive(true);
+        }
         AnimatorStateInfo stateInfo = monsterAnimator.GetCurrentAnimatorStateInfo(0);
 
         // 몬스터 애니메이션이 끝났고, 아직 이동 또는 대기를 시작하지 않았을 때

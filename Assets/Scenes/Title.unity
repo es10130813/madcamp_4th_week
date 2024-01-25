@@ -320,13 +320,14 @@ GameObject:
   - component: {fileID: 928257175}
   - component: {fileID: 928257174}
   - component: {fileID: 928257173}
+  - component: {fileID: 928257176}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &928257172
 RectTransform:
   m_ObjectHideFlags: 0
@@ -429,6 +430,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928257171}
   m_CullTransparentMesh: 1
+--- !u!114 &928257176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928257171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84ea961e4b31c540a5793f059cdae36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1082006369
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +522,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 50, z: 0}
-  m_LocalScale: {x: 0.5586, y: 0.5586, z: 0.5586}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.5586}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -526,10 +539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952076d93a55b5d4ead67b4c602edfa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 928257171}
+  threshold: 0.01
   titleTransform: {fileID: 1082006371}
   monsterAnimator: {fileID: 494104497}
   startPosition: {x: 0, y: 100, z: 0}
-  endPosition: {x: 0, y: 0.75, z: 0}
+  endPosition: {x: 0, y: 0.55, z: 0}
   moveDuration: 1
 --- !u!1 &1097457499
 GameObject:
