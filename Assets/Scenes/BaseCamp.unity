@@ -774,6 +774,7 @@ GameObject:
   - component: {fileID: 672946249}
   - component: {fileID: 672946248}
   - component: {fileID: 672946247}
+  - component: {fileID: 672946250}
   m_Layer: 0
   m_Name: check_point_5 (2)
   m_TagString: Untagged
@@ -837,7 +838,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1630617867, guid: e2265ccd1a633c94e8869013cd4823fd, type: 3}
+  m_Sprite: {fileID: 1463072942, guid: f980f994c9ffbc64585386c48fdbe5bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -863,6 +864,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &672946250
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672946246}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6380f086148461045b9231ad21916598, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &927875060
 GameObject:
   m_ObjectHideFlags: 0
