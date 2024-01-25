@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55fa4c69a1112e4e9a1c47026845589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 1801422709}
 --- !u!95 &18048302
 Animator:
   serializedVersion: 5
@@ -3383,6 +3384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55fa4c69a1112e4e9a1c47026845589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 1801422709}
 --- !u!95 &474411719
 Animator:
   serializedVersion: 5
@@ -4783,6 +4785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55fa4c69a1112e4e9a1c47026845589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 1801422709}
 --- !u!1 &769931944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6983,6 +6986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55fa4c69a1112e4e9a1c47026845589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 1801422709}
 --- !u!95 &1115029834
 Animator:
   serializedVersion: 5
@@ -17455,6 +17459,11 @@ MonoBehaviour:
   - {fileID: 1095138419}
   - {fileID: 1014829583}
   - {fileID: 816431643}
+  - {fileID: 371709216}
+  - {fileID: 401189295}
+  - {fileID: 386845675}
+  - {fileID: 253457353}
+  - {fileID: 50354690}
   knockbackDuration: 0.3
   isKnockedBack: 0
   knockbackForce: 0.8
