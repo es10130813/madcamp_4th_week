@@ -40,6 +40,16 @@ public class Slime : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         PickRandomDirection();
         circleCollider = GetComponent<CircleCollider2D>();
+
+        string currentSword = PlayerPrefs.GetString("DefaultAnimation", "right_hand_sword");
+
+        if(currentSword=="sword2"){
+            knockbackForce = 1f;
+        }
+        else if(currentSword=="sword3"){
+            knockbackForce = 5f;
+        }
+
     }
 
     private void Update()

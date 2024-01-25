@@ -28,6 +28,16 @@ public class Scarecrow : MonoBehaviour
         circleCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = transform.position; // 초기 위치 설정
+
+        
+        string currentSword = PlayerPrefs.GetString("DefaultAnimation", "right_hand_sword");
+
+        if(currentSword=="sword2"){
+            knockbackForce = 1f;
+        }
+        else if(currentSword=="sword3"){
+            knockbackForce = 5f;
+        }
     }
 
     private void Update()
