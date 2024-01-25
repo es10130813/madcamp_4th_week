@@ -3,26 +3,62 @@ using UnityEngine;
 public class InteractionScript : MonoBehaviour
 {
     public GameObject alertPanel; // 알림창에 해당하는 UI 오브젝트
+    public GameObject objectToAnimate; // 애니메이션을 변경할 오브젝트
+
+    public string newAnimationState; // 변경할 새로운 애니메이션 상태의 이름
 
     private bool isPlayerNear = false; // 플레이어가 오브젝트 근처에 있는지 여부
     private int hasToggled = 0; // 알림창을 이미 한 번 토글했는지 여부
 
+    
+    void Start()
+    {
+        LoadDefaultAnimation();
+    }
+
     void Update()
     {
-        // 플레이어가 오브젝트 근처에 있고 F 키를 누르며 알림창을 아직 토글하지 않았다면
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.F) && hasToggled<2)
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.F) && hasToggled < 2)
         {
-            // 알림창의 활성화 상태를 토글하고 토글 플래그를 설정
             alertPanel.SetActive(!alertPanel.activeSelf);
-            hasToggled ++;
+            hasToggled++;
+
+            // 여기서 다른 오브젝트의 애니메이션 변경
+            ChangeAnimation();
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 플레이어 태그를 사용
+        if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
+        }
+    }
+
+    private void ChangeAnimation()
+    {
+        // Animator 컴포넌트를 가져오고 새로운 애니메이션 상태로 변경
+        Animator animator = objectToAnimate.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.Play(newAnimationState);
+            PlayerPrefs.SetString("DefaultAnimation", newAnimationState);
+            PlayerPrefs.Save();
+        }
+    }
+
+       private void LoadDefaultAnimation()
+    {
+        Debug.Log("LoadDefaultAnimation(start)");
+        string defaultAnimation = PlayerPrefs.GetString("DefaultAnimation", "right_hand_sword"); // DefaultState는 기본 애니메이션 이름
+        newAnimationState = defaultAnimation;
+
+        // Animator 컴포넌트를 가져와서 저장된 애니메이션으로 설정
+        Animator animator = objectToAnimate.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.Play(newAnimationState);
         }
     }
 }
