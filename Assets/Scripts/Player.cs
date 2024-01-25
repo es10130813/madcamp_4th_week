@@ -16,12 +16,18 @@ public class Player : MonoBehaviour
     private bool playerClicked = false;
     [SerializeField] private float clickDuration = 0.5f;
 
+    private Vector3 originalPosition;
+
+    [SerializeField] private int maxJumps = 2; // 최대 점프 횟수 설정
+    private int currentJumps = 0;
+
     public Rigidbody2D rb;
     public SpriteRenderer playerSpriteRenderer;
     public Transform child; // 자식 오브젝트 참조
     public float jumpHeight = 2f; // 점프 높이
     public float jumpDuration = 0.5f; // 점프 시간
     private bool isJumping = false; // 점프 상태 추적 변수
+    private bool requestJump = false; 
     public bool isFalling = false;
     private Vector3 startPosition;
     private Vector3 checkPointPosition;
@@ -39,6 +45,7 @@ public class Player : MonoBehaviour
         checkPointPosition = startPosition;
         PlayerPrefs.DeleteKey("CheckpointX");
         PlayerPrefs.DeleteKey("CheckpointY");
+        originalPosition = child.localPosition;
 
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
         if (playerSpriteRenderer != null)
@@ -81,6 +88,22 @@ public class Player : MonoBehaviour
         {
             Vector3 moveHorizontal = new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             Vector3 moveVertical = new Vector3(0, moveSpeed * Time.deltaTime, 0);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+    {
+        if (currentJumps < maxJumps) // 현재 점프 횟수가 최대 점프 횟수 미만인 경우
+        {
+            if (!isJumping) // 현재 점프 중이 아니면 새로운 점프 시작
+            {
+                StartCoroutine(Jump());
+            }
+            else // 현재 점프 중이면 추가 점프 요청
+            {
+                requestJump = true;
+            }
+            currentJumps++; // 점프 횟수 증가
+        }
+    }
 
             bool isDiagonal = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
             if (isDiagonal)
@@ -216,6 +239,7 @@ IEnumerator EndKnockback()
             circleCollider.isTrigger = false;
         }
         rb.gravityScale = 0f;
+        currentJumps = 0;
         ResetLayerOrder();
         // 중력 스케일 초기화
         // 필요한 경우 다른 초기화 로직 추가
@@ -318,34 +342,51 @@ IEnumerator EndKnockback()
         UpdateLayerOrder(); // Layer Order 업데이트
     }
 
-    IEnumerator Jump()
+   IEnumerator Jump()
+{
+    isJumping = true;
+
+    float elapsedTime = 0;
+    Vector3 jumpStartPosition = child.localPosition; // 현재 점프의 시작 위치
+    Vector3 targetPosition = jumpStartPosition + new Vector3(0, jumpHeight, 0); // 점프 최고점
+
+    // 상승 부분
+    while (elapsedTime < jumpDuration)
     {
-        isJumping = true; // 점프 시작을 표시
-
-        float elapsedTime = 0;
-        Vector3 originalPosition = child.localPosition;
-        Vector3 targetPosition = originalPosition + new Vector3(0, jumpHeight, 0);
-
-        while (elapsedTime < jumpDuration)
+        if (requestJump)
         {
-            child.localPosition = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / jumpDuration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            requestJump = false;
+            jumpStartPosition = child.localPosition;
+            elapsedTime = 0; // 시간 초기화
+            targetPosition = jumpStartPosition + new Vector3(0, jumpHeight, 0); // 새로운 최고점 계산
         }
 
-        child.localPosition = targetPosition;
-
-        // 다시 내려오는 부분
-        elapsedTime = 0;
-        while (elapsedTime < jumpDuration)
-        {
-            child.localPosition = Vector3.Lerp(targetPosition, originalPosition, (elapsedTime / jumpDuration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        child.localPosition = originalPosition;
-        isJumping = false; // 점프가 끝났으므로 상태를 변경
-
+        float t = elapsedTime / jumpDuration;
+        t = Mathf.SmoothStep(0.0f, 1.0f, t); // 부드러운 보간을 위한 SmoothStep 사용
+        child.localPosition = Vector3.Lerp(jumpStartPosition, targetPosition, t);
+        elapsedTime += Time.deltaTime;
+        yield return null;
     }
+
+    child.localPosition = targetPosition;
+
+    // 하강 부분 - 동일한 방식으로 SmoothStep 적용
+    elapsedTime = 0;
+    while (elapsedTime < jumpDuration)
+    {
+
+        float t = elapsedTime / jumpDuration;
+        t = Mathf.SmoothStep(0.0f, 1.0f, t);
+        child.localPosition = Vector3.Lerp(targetPosition, originalPosition, t);
+        elapsedTime += Time.deltaTime;
+        yield return null;
+    }
+
+    child.localPosition = originalPosition;
+    isJumping = false;
+    if (currentJumps >= maxJumps)
+    {
+        currentJumps = 0; // 최대 점프 횟수에 도달하면 점프 횟수 초기화
+    }
+}
 }
