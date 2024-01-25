@@ -7,6 +7,7 @@ public class CheckPointTrigger : MonoBehaviour
     private Animator animator;
     private bool isPlayerInRange = false;
     private Vector3 checkpointPosition; // 체크포인트의 위치를 저장하는 변수
+    public HealthManager healthManager; // HealthManager 참조 추가
 
     void Start()
     { 
@@ -47,5 +48,6 @@ public class CheckPointTrigger : MonoBehaviour
         PlayerPrefs.SetFloat("CheckpointX", checkpointPosition.x);
         PlayerPrefs.SetFloat("CheckpointY", checkpointPosition.y);
         PlayerPrefs.Save();
+        healthManager.SetHealth(3);
     }
 }
