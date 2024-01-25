@@ -167,6 +167,8 @@ Transform:
   m_Children:
   - {fileID: 369903452}
   - {fileID: 1610025458}
+  - {fileID: 2052156890}
+  - {fileID: 267669092}
   - {fileID: 2043080150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -279,6 +281,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &267669091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267669092}
+  m_Layer: 0
+  m_Name: Start1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267669092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267669091}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.67, y: -1.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 25433721}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &305817374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,6 +1214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55fa4c69a1112e4e9a1c47026845589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 0}
 --- !u!1 &965392275
 GameObject:
   m_ObjectHideFlags: 0
@@ -3227,6 +3261,7 @@ MonoBehaviour:
   isKnockedBack: 0
   knockbackForce: 0.8
   clickDuration: 0.5
+  maxJumps: 2
   rb: {fileID: 1847863205}
   playerSpriteRenderer: {fileID: 0}
   child: {fileID: 119884373}
@@ -3415,7 +3450,7 @@ GameObject:
   - component: {fileID: 2043080154}
   - component: {fileID: 2043080153}
   - component: {fileID: 2043080152}
-  - component: {fileID: 2043080151}
+  - component: {fileID: 2043080155}
   m_Layer: 0
   m_Name: Droptile
   m_TagString: Untagged
@@ -3438,22 +3473,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 25433721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2043080151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2043080149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad025142398f4a2aa7a2ffc8a7af56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropSpeed: 5
-  disappearHeight: -10
-  playerOnTileTime: 2
-  respawnTime: 2
 --- !u!60 &2043080152
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3655,6 +3674,56 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2043080155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043080149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabf7e647df144db88f4415bb27b38ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropSpeed: 5
+  disappearHeight: -10
+  playerOnTileTime: 2
+  respawnTime: 2
+  startPos: {fileID: 267669092}
+  endPos: {fileID: 2052156890}
+  speed: 2
+--- !u!1 &2052156889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2052156890}
+  m_Layer: 0
+  m_Name: End1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2052156890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052156889}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.35, y: 0.62000006, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 25433721}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2066876300
 GameObject:
   m_ObjectHideFlags: 0
